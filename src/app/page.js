@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import Image from "next/image";
 
 export default function Home() {
@@ -11,7 +12,7 @@ export default function Home() {
           width={100}
           height={20}
           priority
-        />
+        /><br></br>
         <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
           <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
             To get started, edit the page.js file.
@@ -34,6 +35,7 @@ export default function Home() {
             center.
           </p>
         </div>
+        <br></br>
         <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
           <a
             className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
@@ -58,6 +60,34 @@ export default function Home() {
           >
             Documentation
           </a>
+        </div>
+        <br></br>
+        <div className="relative h-40 w-full overflow-hidden rounded-lg border">
+          <Image
+            src="/images/logo.jpg"
+            alt="KKU Library"
+            fill
+            className="object-cover"
+            priority
+          />
+        </div>
+        <br></br>
+        <div className="space-y-2">
+          <h1 className="text-2xl font-bold">KKU Library</h1>
+          <p className="text-sm text-gray-600">
+            Next.js + Tailwind + Express API
+          </p>
+        </div>
+        <div className="space-x-3 text-sm">
+          <Link className="underline" href="/login">
+            Login
+          </Link>
+          <Link className="underline" href="/register">
+            Create user
+          </Link>
+          <Link className="underline" href="/me">
+            Me
+          </Link>
         </div>
       </main>
     </div>
