@@ -48,11 +48,23 @@ export default function LoginPage() {
         return;
       }
 
+      // --- ส่วนที่ปรับปรุงใหม่ ---
       localStorage.setItem('accessToken', json.accessToken);
+      
+      // บันทึก Email ลงใน localStorage เพื่อให้หน้า Books นำไปแสดงผล
+      // โดยใช้ค่า email จาก input ที่ผู้ใช้พิมพ์เข้ามา (ซึ่งผ่านการตรวจสอบจาก server แล้ว)
+      localStorage.setItem('userEmail', email.trim().toLowerCase());
+      
+      // เก็บ userId ไว้ด้วยเผื่อใช้ในฟีเจอร์อื่นๆ (ถ้า server ส่งกลับมาใน json.user.id)
+      if (json.user?.id) {
+        localStorage.setItem('userId', json.user.id);
+      }
+      // -----------------------
+
       showToast('success', 'Login สำเร็จ');
 
-      // เลือกพาไปหน้าที่ต้องใช้ token
       window.location.href = '/me';
+      
     } catch {
       showToast('error', 'ไม่สามารถเชื่อมต่อเซิร์ฟเวอร์ได้');
     } finally {
@@ -61,7 +73,7 @@ export default function LoginPage() {
   }
 
   return (
-    <main className="mx-auto max-w-md space-y-6">
+    <main className="mx-auto max-w-md p-6 space-y-6">
       <Toast
         open={toastOpen}
         variant={toastVariant}
@@ -69,27 +81,27 @@ export default function LoginPage() {
         onClose={() => setToastOpen(false)}
       />
 
-      <div className="space-y-1">
-        <h1 className="text-xl font-semibold">Login</h1>
-        <p className="text-sm text-gray-600">เข้าสู่ระบบเพื่อใช้งานฟีเจอร์ที่ต้องยืนยันตัวตน</p>
+      <div className="space-y-1 text-center">
+        <h1 className="text-2xl font-bold text-slate-800">Login</h1>
+        <p className="text-sm text-gray-500">เข้าสู่ระบบ KKU Library Backoffice</p>
       </div>
 
-      <form onSubmit={onSubmit} className="space-y-4 rounded-lg border p-4">
-        <div className="space-y-1">
-          <label className="text-sm font-medium">Email</label>
+      <form onSubmit={onSubmit} className="space-y-5 rounded-2xl border bg-white p-6 shadow-sm">
+        <div className="space-y-2">
+          <label className="text-sm font-semibold text-slate-700">Email</label>
           <input
-            className="w-full rounded-md border px-3 py-2 text-sm"
+            className="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            placeholder="alice@example.com"
+            placeholder="example@kku.ac.th"
             autoComplete="email"
           />
         </div>
 
-        <div className="space-y-1">
-          <label className="text-sm font-medium">Password</label>
+        <div className="space-y-2">
+          <label className="text-sm font-semibold text-slate-700">Password</label>
           <input
-            className="w-full rounded-md border px-3 py-2 text-sm"
+            className="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="••••••••"
@@ -99,15 +111,15 @@ export default function LoginPage() {
         </div>
 
         <button
-          className="w-full rounded-md bg-black px-3 py-2 text-sm font-medium text-white disabled:opacity-50"
+          className="w-full rounded-xl bg-blue-600 hover:bg-blue-700 px-4 py-3 text-sm font-bold text-white shadow-md transition-all active:scale-[0.98] disabled:opacity-50"
           disabled={loading}
         >
-          {loading ? 'Signing in...' : 'Sign in'}
+          {loading ? 'กำลังเข้าสู่ระบบ...' : 'เข้าสู่ระบบ'}
         </button>
       </form>
 
-      <p className="text-sm text-gray-600">
-        ยังไม่มีบัญชี? <a className="underline" href="/register">สร้างผู้ใช้</a>
+      <p className="text-sm text-center text-gray-500">
+        ยังไม่มีบัญชี? <a className="text-blue-600 font-semibold hover:underline" href="/register">สร้างบัญชีผู้ใช้ใหม่</a>
       </p>
     </main>
   );
