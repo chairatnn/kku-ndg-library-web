@@ -10,8 +10,8 @@ export default async function HealthPage() {
     const data = await getHealth();
     return (
         <main className="space-y-3">
-            <h1 className="text-xl font-semibold">Health</h1>
-            <pre className="rounded-md border bg-gray-50 p-3 text-xs">{JSON.stringify(data, null, 2)}</pre>
+            <h1 className="text-xl text-black font-semibold">Health</h1>
+            <pre className="rounded-md border bg-gray-50 p-3 text-xs text-black">{JSON.stringify(data, null, 2)}</pre>
         </main>
     );
 }
